@@ -2,7 +2,7 @@
 @extends('layouts.master')
 
 @section('title')
-Log in dev
+Log in
 @endsection
 
 @section('content')
