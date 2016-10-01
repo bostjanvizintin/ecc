@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 
-class AddSensorBoxRequest extends FormRequest
+
+class EditSensorBoxRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +25,10 @@ class AddSensorBoxRequest extends FormRequest
      */
     public function rules()
     {
-        return  [
-            'hash' => 'required|unique:sensorBoxes',
+        return [
+            'hash' => 'required',
             'name' => 'required',
             'numOfInputs' => 'required|min:1|max:12'
-            ];
+        ];
     }
 }

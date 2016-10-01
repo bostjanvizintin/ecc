@@ -16,6 +16,7 @@
 
 
     <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -82,6 +83,7 @@
     @yield('content')
 
     <!-- Scripts -->
+    @yield('script')
     <script src="/js/app.js"></script>
 </body>
 </html>

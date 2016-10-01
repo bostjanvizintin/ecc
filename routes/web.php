@@ -19,13 +19,6 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 
-Route::get('/addSensorBox', function () {
-	return view('addSensorBox');
-})->name('addSensorBox');
-
-Route::post('/addSensorBox', 'SensorBoxController@postAddSensorBox')->name('addSensorBox');
-
+Route::resource('sensorBox', 'SensorBoxController');
 
 Auth::routes();
-
-

@@ -17,21 +17,28 @@
                           @include('includes.mainButtons')
                         </div>
                         <div class="panel-body">
-                            <form action="{{ route('sensorBox.store') }}" method="POST">
+                            <form action="{{ route('sensorBox.update', $sensorBox['hash']) }}" method="POST">
                               <div class="form-group"> 
                                 <label for="hash">Sensor hash:</label>
-                                <input class="form-control" type="text" name="hash">
+                                <input class="form-control" type="text" name="hash" value="{{ $sensorBox['hash'] }}" disabled>
+                                <input type="hidden" name="hash" value="{{  $sensorBox['hash']}}">
                               </div>
                               <div class="form-group">
                                 <label for="name">Sensor name:</label>
-                                <input class="form-control" type="text" name="name"></input>
+                                <input class="form-control" type="text" name="name"  value="{{ $sensorBox['name'] }}"></input>
                               </div>
                               <div class="form-group">
                                 <label for="inputs">Number of inputs:</label>
-                                <input class="form-control" type="number" name="numOfInputs" min="0" max="12" step="1">
+                                <input class="form-control" type="number" name="numOfInputs" min="0" max="12" step="1"  value="{{ $sensorBox['numOfInputs'] }}">
                               </div>
-                              <button class="btn btn-default" type="submit">Add sensorBox</button>
+                              <button class="btn btn-default" type="submit">Edit sensorBox</button>
                               {{ csrf_field() }}
+                              {{ method_field('PUT') }}
+                            </form><br>
+                            <form action="{{ route('sensorBox.destroy', $sensorBox['hash']) }}" method="POST">
+                              <button class="btn btn-danger" id="deleteSensorBoxForm" type="submit">Delete sensor box</button>
+                              {{ csrf_field() }}
+                              {{ method_field('DELETE') }}
                             </form><br>
                             @if (isset($errors) && count($errors) > 0)
                                 <div class="alert alert-danger">
