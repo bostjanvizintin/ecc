@@ -22,6 +22,7 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+    @yield('headscript')
 </head>
 <body>
     <nav class="navbar navbar-default navbar-static-top">
@@ -79,11 +80,19 @@
             </div>
         </div>
     </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                 <div class="panel panel-default">
+                    @yield('content')
+                 </div>
+            </div>
+        </div>
+    </div>
     
-    @yield('content')
 
     <!-- Scripts -->
-    @yield('script')
+    @yield('bodyscript')
     <script src="/js/app.js"></script>
 </body>
 </html>

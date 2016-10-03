@@ -21,19 +21,20 @@ class CreateTables extends Migration
         });
         Schema::create('measurementPoints', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->timestamps();
         });
-        Schema::create('sensors', function(Blueprint $table) {
+        Schema::create('sensors', function(Blueprint $table) {  
             $table->increments('id');
             $table->string('hash');
+            $table->integer('input');
             $table->integer('idMeasurementPoint')->references('id')->on('measurementPoints');
-            $table->integer('idSubMeasurementPoint')->references('id')->on('measurementPoints')->nullable();
+            $table->integer('idSubMeasurementPoint')->references('id')->on('measurementPoints');
             $table->timestamps();
+            $table->unique(array('hash', 'input'));
         });
         Schema::create('measurements', function(Blueprint $table) {
             $table->increments('id');
-            $table->dateTime('dateTime');
             $table->decimal('value', 3, 2);
             $table->integer('idSensor')->references('id')->on('sensors');
             $table->timestamps();

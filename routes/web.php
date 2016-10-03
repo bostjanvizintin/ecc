@@ -11,6 +11,8 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function() {
 	return view('home');
 });
@@ -19,6 +21,8 @@ Route::get('/home', function () {
     return view('home');
 })->name('home');
 
-Route::resource('sensorBox', 'SensorBoxController');
+Route::resource('/sensorBox', 'SensorBoxController');
 
-Auth::routes();
+//Route::resource('/sensor', 'SensorController');
+
+Route::get('/usage', 'UsageController@index')->name('usage.index');
