@@ -64,15 +64,9 @@ class SensorBoxController extends Controller
 			$sensor->idSubMeasurementPoint = $idSubName;
 
 			$sensor->save();
-
-	
-			
-		}
 		
-		return "done";
-
-
-		//return $request->all();
+		}
+		//edit the sensor
 		$sensorBox = App\SensorBox::find($id);
 		$sensorBox->name = $request['name'];
 		$sensorBox->numOfInputs = $request['numOfInputs'];
@@ -84,6 +78,10 @@ class SensorBoxController extends Controller
 	public function destroy($id) {
 		App\SensorBox::destroy($id);
 		return view('addSensorBox')->with('message', 'Successfully deleted sensor box!');
+	}
+
+	public function listSensors() {
+		return "testing!!!";
 	} 
 
 }

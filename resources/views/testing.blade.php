@@ -1,7 +1,7 @@
 <html>
   <head>
     <!--Load the AJAX API-->
-    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
       // Load the Visualization API and the corechart package.
@@ -16,16 +16,7 @@
       function drawChart() {
 
         // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
+        var data = google.visualization.arrayToDataTable(<?php echo json_encode($chart); ?>);
 
         // Set chart options
         var options = {'title':'How Much Pizza I Ate Last Night',
@@ -33,7 +24,7 @@
                        'height':300};
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
     </script>
@@ -42,5 +33,6 @@
   <body>
     <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
+    <?php var_dump($chart); ?>
   </body>
 </html>

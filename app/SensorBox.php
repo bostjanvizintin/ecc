@@ -12,9 +12,11 @@ class SensorBox extends Model
     protected $fillable = ['idUser', 'hash', 'name', 'numOfInputs'];
 
 
-    public function sensor() {
+    public function sensors() {
     	return $this->hasMany('App\Sensor', 'hash', 'hash');
     }
+
+
 
 
 }

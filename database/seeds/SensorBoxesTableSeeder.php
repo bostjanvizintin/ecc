@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class SensorBoxTableSeeder extends Seeder
+class SensorBoxesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -26,3 +26,7 @@ Route::resource('/sensorBox', 'SensorBoxController');
 //Route::resource('/sensor', 'SensorController');
 
 Route::get('/usage', 'UsageController@index')->name('usage.index');
+
+Route::post('/usage', 'UsageController@drawChart')->name('usage.drawChart');
+
+Route::get('/measurement/{idSensor}/{value}', 'MeasurementController@reportSensorReading')->name('measurement.report');

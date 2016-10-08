@@ -10,8 +10,11 @@ class Sensor extends Model
     protected $fillable = ['hash', 'input', 'idMeasurementPoint', 'idSubMeasurementPoint'];
 
 
-
     public function sensorBox() {
-    	return $this->belongsTo('App\SensorBox');
+    	return $this->belongsTo('App\SensorBox', 'hash', 'id');
+    }
+
+     public function measurement() {
+    	return $this->hasMany('App\Measurement');
     }
 }

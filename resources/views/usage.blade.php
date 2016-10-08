@@ -17,24 +17,19 @@
       function drawChart() {
 
         // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
+         var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2004',  1000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
         ]);
-        console.log(data);
+        
         // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
-                       'height':300};
+        var options = {'title':'Usage'};
 
         // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
         chart.draw(data, options);
       }
     </script>
@@ -42,7 +37,35 @@
 
 
 @section('content')
-	<div id="chart_div">
-		
-	</div>
+  <div class="panel panel-default panel-margin">
+    <div class="panel-body">
+      <form action="#" method="POST">
+        @foreach($sensors as $key => $sensorBox)
+          <div class="form-group">
+            <h5>{{ $sensors[$key]['name'] }} :: {{ $sensors[$key]['hash'] }}</h5>
+            <ul>
+            @foreach($sensorBox['sensors'] as $sensor)
+              <li><label for="sensor">{{ $sensor['measurementPointName'] }}, {{ $sensor['measurementPointSubName'] }} </label><input type="checkbox" name="sensors[]" value="{{ $sensor['id'] }}"></li>
+            @endforeach
+            </ul>
+
+        @endforeach
+
+        <label for="startDate">Start date:</label>
+        <input class="form-control" type="date" name="startDate"><input class="form-control" type="time" name="startTime">
+        <label for="endDate">End date:</label>
+        <input class="form-control" type="date" name="endDate"><input class="form-control" type="time" name="endTime">
+        {{ csrf_field() }}
+        <button class="btn btn-default" type="submit">Show usage</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+   
+
+  	<div id="chart_div">
+  		
+  	</div>
+
 @endsection
