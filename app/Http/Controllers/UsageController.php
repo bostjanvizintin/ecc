@@ -16,32 +16,31 @@ class UsageController extends Controller
 		*Add options to limit result by time.
 		*Add option to select current usage or total usage
     	*/
+      //list all user's sernsors
+      $idUser = Auth::user()->id;
+      //get all user's sensor boxes
+      $userSensorBoxes = App\SensorBox::where('idUser', $idUser)->get();
+      //for each sensor box find its sensors and append them to sensor box
+      foreach ($userSensorBoxes as $sensorBoxKey => $value) {
+        $userSensorBoxes[$sensorBoxKey]->sensors = App\Sensor::where('hash', $userSensorBoxes[$sensorBoxKey]['hash'])->get();
+        //For each sensor connected to sensor box find the names of measurement points and substitute ids with those names and change index name. Same for sub names of measurement points.
+        foreach ($userSensorBoxes[$sensorBoxKey]['sensors'] as $sensorKey => $value) {
+          $userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['measurementPointName'] = App\MeasurementPoint::find($userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['idMeasurementPoint'])->name;
+          //unset($userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['idMeasurementPoint']);
+          $userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['measurementPointSubName'] = App\MeasurementPoint::find($userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['idSubMeasurementPoint'])->name;
+          //unset($userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['idSubMeasurementPoint']);
+        }
+      }
 
-		//list all user's sernsors
-		$idUser = Auth::user()->id;
-		//get all user's sensor boxes
-		$userSensorBoxes = App\SensorBox::where('idUser', $idUser)->get();
-		//for each sensor box find its sensors and append them to sensor box
-		foreach ($userSensorBoxes as $sensorBoxKey => $value) {
-			$userSensorBoxes[$sensorBoxKey]->sensors = App\Sensor::where('hash', $userSensorBoxes[$sensorBoxKey]['hash'])->get();
-			//For each sensor connected to sensor box find the names of measurement points and substitute ids with those names and change index name. Same for sub names of measurement points.
-			foreach ($userSensorBoxes[$sensorBoxKey]['sensors'] as $sensorKey => $value) {
-				$userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['measurementPointName'] = App\MeasurementPoint::find($userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['idMeasurementPoint'])->name;
-				//unset($userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['idMeasurementPoint']);
-				$userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['measurementPointSubName'] = App\MeasurementPoint::find($userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['idSubMeasurementPoint'])->name;
-				//unset($userSensorBoxes[$sensorBoxKey]['sensors'][$sensorKey]['idSubMeasurementPoint']);
-			}
-		}
-    	//return $userSensorBoxes;
     	return view('usage')->with('sensors', $userSensorBoxes);
 
     }
 
     public function drawChart(Request $request) {
     	$idSensors = $request->sensors;
-    	$startDate = strtotime($request->startDate);
-    	$endDate = strtotime($request->endDate);
-    	$interval = 100000;
+    	$startDate = strtotime($request->startDate) + strtotime($request->startTime) - strtotime('00:00');
+    	$endDate = strtotime($request->endDate) + strtotime($request->endTime) - strtotime('00:00');
+    	$interval = $request->interval;
 
     	$usage = App\Measurement::whereIn('idSensor', $idSensors)->orderBy('created_at')->get()->toArray();
 
@@ -69,6 +68,19 @@ class UsageController extends Controller
 
         array_push($chart, $chartEmptyRowWithDate);
       }
-      return view('testing')->with('chart', $chart);
+
+      if ($request->chartType == 'total') {
+        $middleValues = array();
+        for ($i=1; $i < count($chart); $i++) {
+          for ($j=1; $j < count($chart[$i]); $j++) {
+            $middleValues[$j] += $chart[$i][$j];
+            $chart[$i][$j] = $middleValues[$j];
+          }
+        }
+      }
+
+      return view('drawChart')->with('chart', $chart);
     }
+
+
 }
