@@ -35,7 +35,7 @@ class UsageController extends Controller
     	return view('usage')->with('sensors', $userSensorBoxes);
 
     }
-asdfasdfasdfasdf
+
     public function drawChart(Request $request) {
     	$idSensors = $request->sensors;
     	$startDate = strtotime($request->startDate) + strtotime($request->startTime) - strtotime('00:00');
@@ -45,6 +45,17 @@ asdfasdfasdfasdf
     	$usage = App\Measurement::whereIn('idSensor', $idSensors)->orderBy('created_at')->get()->toArray();
 
       $chart = array();
+
+
+
+
+
+
+      $chartEmptyRowWithDate = array();
+      foreach ($idSensors as $value) {
+        array_push($chartEmptyRowWithDate, 0);
+      }
+      array_unshift($chartEmptyRowWithDate, "date");
 
       //create chartArray that fits chart requirement
       $chartFirstRow = array('Time');
@@ -56,9 +67,11 @@ asdfasdfasdfasdf
       for ($i=0; $i < ($endDate - $startDate) / $interval; $i++) {
         $rowDate = (new \DateTime())->setTimestamp($startDate + ($i*$interval))->format('Y-m-d H:i:s');
 
-        $chartEmptyRowWithDate = array($rowDate);
-        foreach ($idSensors as $value) {
-          array_push($chartEmptyRowWithDate, 0);
+        $chartEmptyRowWithDate[0] = $rowDate;
+        if ($request->chartType == 'current') {
+          for ($k=1; $k  < count($chartEmptyRowWithDate); $k++) {
+            $chartEmptyRowWithDate[$k] = 0;
+          }
         }
 
         while(!empty($usage) && $usage[0]['created_at'] < ($startDate + ($i * $interval))) {
