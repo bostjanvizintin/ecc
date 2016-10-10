@@ -69,16 +69,6 @@ class UsageController extends Controller
         array_push($chart, $chartEmptyRowWithDate);
       }
 
-      if ($request->chartType == 'total') {
-        $middleValues = array();
-        for ($i=1; $i < count($chart); $i++) {
-          for ($j=1; $j < count($chart[$i]); $j++) {
-            $middleValues[$j] += $chart[$i][$j];
-            $chart[$i][$j] = $middleValues[$j];
-          }
-        }
-      }
-
       return view('drawChart')->with('chart', $chart);
     }
 
