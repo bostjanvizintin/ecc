@@ -35,7 +35,7 @@ class UsageController extends Controller
     	return view('usage')->with('sensors', $userSensorBoxes);
 
     }
-
+asdfasdfasdfasdf
     public function drawChart(Request $request) {
     	$idSensors = $request->sensors;
     	$startDate = strtotime($request->startDate) + strtotime($request->startTime) - strtotime('00:00');
