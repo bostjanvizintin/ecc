@@ -46,11 +46,6 @@ class UsageController extends Controller
 
       $chart = array();
 
-
-
-
-
-
       $chartEmptyRowWithDate = array();
       foreach ($idSensors as $value) {
         array_push($chartEmptyRowWithDate, 0);
