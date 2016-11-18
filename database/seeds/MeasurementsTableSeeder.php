@@ -12,7 +12,8 @@ class MeasurementsTableSeeder extends Seeder
     public function run()
     {
         for ($i=0; $i < 100; $i++) {
-          $measurement = new App\Measurement(['value' => 2.21, 'idSensor' => rand(1,4)]);
+          $date = date('Y-m-d H:i:s', rand(1451606400, 1483228800));
+          $measurement = new App\Measurement(['value' => 2.21, 'idSensor' => rand(1,4), 'created_at' => $date]);
           $measurement->save();
 
         }

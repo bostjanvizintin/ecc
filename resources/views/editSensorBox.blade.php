@@ -9,12 +9,12 @@
     </div>
     <div class="col-xs-10">
        <div class="panel panel-default panel-margin">
-          <div class="panel-heading"> 
+          <div class="panel-heading">
             @include('includes.mainButtons')
           </div>
           <div class="panel-body">
               <form action="{{ route('sensorBox.update', $sensorBox['hash']) }}" method="POST">
-                <div class="form-group"> 
+                <div class="form-group">
                   <label for="hash">Sensor hash:</label>
                   <input class="form-control" type="text" name="hash" value="{{ $sensorBox['hash'] }}" disabled>
                   <input type="hidden" name="hash" value="{{  $sensorBox['hash']}}">
@@ -29,22 +29,38 @@
                 </div>
                 <hr>
                 <label for="sensors">Sensors:</label><br>
-                  @for($i = 0;$i<$sensorBox['numOfInputs'];$i++) 
+                  @for($i = 0;$i<$sensorBox['numOfInputs'];$i++)
                     <label for="input">Input {{$i}}</label>
                     <div class="row">
-                      <div class="col-xs-6">
+                      <div class="col-xs-4">
                         <div class="form-group">
-                          <label for="name">Name for sensor {{$i}}</label> 
+                          <label for="name">Name for sensor {{$i}}</label>
                           <input class="form-control" type="text" name="sensorName[]"></input>
                         </div>
-                      </div> 
-                      <div class="col-xs-6">
+                      </div>
+                      <div class="col-xs-4">
                         <div class="form-group">
-                         <label for=subname>Sub name for sensor {{$i}}</label>
+                         <label for="subname">Sub name for sensor {{$i}}</label>
                          <input class="form-control" type="text" name="sensorSubName[]"></input>
                         </div>
-                      </div>       
-                    </div>               
+                      </div>
+                      <div class="col-xs-2">
+                        <div class="form-group">
+                          <label for="sensorMvPerAmp">Sensor type:</label>
+                          <select class="form-control" name="sensorMvPerAmp[]">
+                            <option value="185">5A</option>
+                            <option value="100">20A</option>
+                            <option value="66">30A</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-xs-2">
+                        <div class="form-group">
+                          <label for="input">Input:</label>
+                          <input class="form-control" type="number" name="input[]" min="1" max="{{ $sensorBox['numOfInputs']}}" step="1">
+                        </div>
+                      </div>
+                    </div>
                   @endfor
                 <button class="btn btn-default" type="submit">Edit sensorBox</button>
                 {{ csrf_field() }}

@@ -13,7 +13,7 @@ class SensorBoxController extends Controller
 	public function __construct() {
 
 	}
- 
+
 
 	public function index() {
 		$sensorBoxes = App\SensorBox::where('idUser', Auth::user()->id)->get();
@@ -30,11 +30,11 @@ class SensorBoxController extends Controller
 		$sensorBox = new App\SensorBox($tmp);
 		$sensorBox->save();
 		return view('addSensorBox')->with('message', "Successfully added sensor box!");
-		
+
 	}
 
 	public function show($id) {
-		
+
 	}
 
 	public function edit($id) {
@@ -48,23 +48,26 @@ class SensorBoxController extends Controller
 	public function update($id, Requests\EditSensorBoxRequest $request) {
 		$names = $request->sensorName;
 		$subNames = $request->sensorSubName;
+		$sensorMvPerAmp = $request->sensorMvPerAmp;
+		$inputs = $request->input;
 
 		//get ids of names and subnames and insert new sensors with the ids.
-		for ($i=0; $i < count($names); $i++) { 
+		for ($i=0; $i < count($names); $i++) {
 			$idName = App\MeasurementPoint::firstOrCreate(['name' => $names[$i]])->id;
 			$idSubName = App\MeasurementPoint::firstOrCreate(['name' => $subNames[$i]])->id;
 			$hash = $request->hash;
-			$input = $i;
+			$input = $inputs[$i];
 
 			$sensor = App\Sensor::firstOrNew([
-									'hash' => $hash, 
+									'hash' => $hash,
 									'input' => $input
 									 ]);
 			$sensor->idMeasurementPoint = $idName;
 			$sensor->idSubMeasurementPoint = $idSubName;
+			$sensor->sensorMvPerAmp = $sensorMvPerAmp[$i];
 
 			$sensor->save();
-		
+
 		}
 		//edit the sensor
 		$sensorBox = App\SensorBox::find($id);
@@ -82,6 +85,6 @@ class SensorBoxController extends Controller
 
 	public function listSensors() {
 		return "testing!!!";
-	} 
+	}
 
 }

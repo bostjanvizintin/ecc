@@ -63,6 +63,7 @@
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-md-10">
+				<a href="{{ route('usage.index') }}">Back</a>
 				<div id="chart_div">
 
 				</div>

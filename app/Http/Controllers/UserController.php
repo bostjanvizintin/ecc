@@ -9,15 +9,6 @@ use App\Http\Requests;
 
 class UserController extends Controller
 {
-   
-
-
-
-
-
-
-
-
 
    public function postLogin(Request $request) {
    		if(Auth::attempt(['email' => $request['email'], 'password' => $request['password']])) {

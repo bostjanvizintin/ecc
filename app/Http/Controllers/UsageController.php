@@ -69,7 +69,7 @@ class UsageController extends Controller
           }
         }
 
-        while(!empty($usage) && $usage[0]['created_at'] < ($startDate + ($i * $interval))) {
+        while(!empty($usage) && strtotime($usage[0]['created_at']) < ($startDate + ($i * $interval))) {
           $tmp = array_shift($usage);
           $chartEmptyRowWithDate[array_search($tmp['idSensor'], $idSensors)+1] += $tmp['value'];
         }

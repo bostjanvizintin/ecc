@@ -15,7 +15,6 @@
               <li><label for="sensor">{{ $sensor['measurementPointName'] }}, {{ $sensor['measurementPointSubName'] }} </label><input type="checkbox" name="sensors[]" value="{{ $sensor['id'] }}"></li>
             @endforeach
             </ul>
-
         @endforeach
         <div class="form-group">
           <label for="startDate">Start date:</label>
@@ -38,7 +37,7 @@
         <div class="form-group">
           <label for="type">Current/Total usage:</label><br>
           Current:<input type="radio" name="chartType" value="current">
-          Total:<input type="radio" name="chartType" value="total">
+          Total:<input type="radio" name="chartType" value="total" checked="checked">
         </div>
         {{ csrf_field() }}
         <button class="btn btn-default" type="submit">Show usage</button>

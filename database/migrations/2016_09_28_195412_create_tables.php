@@ -24,10 +24,11 @@ class CreateTables extends Migration
             $table->string('name')->nullable();
             $table->timestamps();
         });
-        Schema::create('sensors', function(Blueprint $table) {  
+        Schema::create('sensors', function(Blueprint $table) {
             $table->increments('id');
             $table->string('hash');
             $table->integer('input');
+            $table->integer('sensorMvPerAmp');
             $table->integer('idMeasurementPoint')->references('id')->on('measurementPoints');
             $table->integer('idSubMeasurementPoint')->references('id')->on('measurementPoints');
             $table->timestamps();
