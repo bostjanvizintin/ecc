@@ -29,6 +29,7 @@ class CreateTables extends Migration
             $table->string('hash');
             $table->integer('input');
             $table->integer('sensorMvPerAmp');
+            $table->integer('sampleTime');
             $table->integer('idMeasurementPoint')->references('id')->on('measurementPoints');
             $table->integer('idSubMeasurementPoint')->references('id')->on('measurementPoints');
             $table->timestamps();
@@ -52,6 +53,20 @@ class CreateTables extends Migration
             $table->boolean('active');
             $table->timestamps();
         });
+        Schema::create('errors', function(Blueprint $table) {
+          $table->increments('id');
+          $table->integer('number');
+          $table->string('name');
+          $table->string('description');
+          $table->timestamps();
+        });
+        Schema::create('userErrors', function(Blueprint $table) {
+          $table->increments('id');
+          $table->integer('idUser')->referecnces('id')->on('users');
+          $table->integer('idError')->references('id')->on('errors');
+          $table->boolean('seen');
+          $table->timestamps();
+        });
     }
     /**
      * Reverse the migrations.
@@ -65,5 +80,7 @@ class CreateTables extends Migration
         Schema::drop('sensors');
         Schema::drop('measurements');
         Schema::drop('notifications');
+        Schema::drop('errors');
+        Schema::drop('userErrors');
     }
 }

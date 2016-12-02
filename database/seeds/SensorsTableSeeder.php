@@ -15,6 +15,7 @@ class SensorsTableSeeder extends Seeder
         'hash' => 'ij43mif5z8ec3w23z89jnv85e9o0p8e2',
         'input' => 1,
         'sensorMvPerAmp' => 100,
+        'sampleTime' => 1,
         'idMeasurementPoint' => 2,
         'idSubMeasurementPoint' => 1
       ]);
@@ -22,6 +23,7 @@ class SensorsTableSeeder extends Seeder
         'hash' => 'ij43mif5z8ec3w23z89jnv85e9o0p8e2',
         'input' => 2,
         'sensorMvPerAmp' => 185,
+        'sampleTime' => 1,
         'idMeasurementPoint' => 3,
         'idSubMeasurementPoint' => 1
       ]);
@@ -29,6 +31,7 @@ class SensorsTableSeeder extends Seeder
         'hash' => 'ij43mif5z8ec3w23z89jnv85e9o0p8e2',
         'input' => 3,
         'sensorMvPerAmp' => 66,
+        'sampleTime' => 1,
         'idMeasurementPoint' => 4,
         'idSubMeasurementPoint' => 1
       ]);
@@ -36,6 +39,7 @@ class SensorsTableSeeder extends Seeder
         'hash' => 'ij43mif5z8ec3w23z89jnv85e9o0p8e2',
         'input' => 4,
         'sensorMvPerAmp' => 100,
+        'sampleTime' => 1,
         'idMeasurementPoint' => 5,
         'idSubMeasurementPoint' => 1
       ]);

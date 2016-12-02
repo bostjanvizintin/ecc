@@ -42,7 +42,8 @@ class UsageController extends Controller
     	$endDate = strtotime($request->endDate) + strtotime($request->endTime) - strtotime('00:00');
     	$interval = $request->interval;
 
-    	$usage = App\Measurement::whereIn('idSensor', $idSensors)->orderBy('created_at')->get()->toArray();
+      $formatedStartDate = (new \DateTime())->setTimestamp($startDate)->format('Y-m-d H:i:s');
+    	$usage = App\Measurement::whereIn('idSensor', $idSensors)->where('created_at', '>=', $formatedStartDate)->orderBy('created_at')->get()->toArray();
 
       $chart = array();
 

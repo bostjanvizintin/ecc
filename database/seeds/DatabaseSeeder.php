@@ -16,5 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SensorsTableSeeder::class);
         $this->call(MeasurementPointsTableSeeder::class);
         $this->call(MeasurementsTableSeeder::class);
+        $this->call(ErrorsTableSeeder::class);
+        $this->call(UserErrorsTableSeeder::class);
     }
 }

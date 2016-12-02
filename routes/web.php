@@ -30,17 +30,10 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::post('/usage', 'UsageController@drawChart')->name('usage.drawChart');
 
+	Route::resource('/userError', 'UserErrorController');
+
 
 });
+Route::get('/pi/getSensorBoxData/{hash}', 'PiController@getSensorBoxData')->name('getSensorBoxData');
 
-Route::get('/measurement/{idSensor}/{value}', 'MeasurementController@reportSensorReading')->name('measurement.report');
-
-Route::get('/arduino/ids/{hash}', 'ArduinoController@getSensorIds')->name('getSensorIds');
-
-Route::get('/arduino/mvPerAmp/{hash}', 'ArduinoController@getSensorsMvPerAmp')->name('getSensorsMvPerAmp');
-
-Route::get('/arduino/numberOfInputs/{hash}', 'ArduinoController@getNumberOfInputs')->name('getNumberOfInputs');
-
-Route::get('/arduino/sensorBoxInputs/{hash}', 'ArduinoController@getSensorBoxInputs')->name('getSensorBoxInputs');
-
-Route::get('/arduino/test', 'ArduinoController@test')->name('test');
+Route::get('/pi/measurement/{idSensor}/{value}', 'PiController@measurement')->name('measurement');
