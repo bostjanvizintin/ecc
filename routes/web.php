@@ -24,13 +24,13 @@ Route::get('/home', function () {
 Route::group(['middleware' => 'auth'], function() {
 	Route::resource('/sensorBox', 'SensorBoxController');
 
-	//Route::resource('/sensor', 'SensorController');
-
 	Route::get('/usage', 'UsageController@index')->name('usage.index');
 
 	Route::post('/usage', 'UsageController@drawChart')->name('usage.drawChart');
 
 	Route::resource('/userError', 'UserErrorController');
+
+	Route::get('/notification', 'NotificationController@index')->name('notification.index');
 
 
 });
