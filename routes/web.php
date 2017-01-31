@@ -28,12 +28,18 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::post('/usage', 'UsageController@drawChart')->name('usage.drawChart');
 
+	Route::get('/usage/{idSensor}', 'UsageController@drawLiveChart')->name('usage.drawLiveChart');
+
+	Route::get('/usage/ajax/{idSensor}/{latestUpdate}', 'UsageController@ajaxGetLatestValue');
+	
 	Route::resource('/userError', 'UserErrorController');
 
-	Route::get('/notification', 'NotificationController@index')->name('notification.index');
+	Route::resource('/notification', 'NotificationController');
+
 
 
 });
+
 Route::get('/pi/getSensorBoxData/{hash}', 'PiController@getSensorBoxData')->name('getSensorBoxData');
 
 Route::get('/pi/measurement/{idSensor}/{value}', 'PiController@measurement')->name('measurement');

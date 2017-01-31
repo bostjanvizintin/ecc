@@ -17,4 +17,8 @@ class Sensor extends Model
      public function measurement() {
     	return $this->hasMany('App\Measurement');
     }
+
+    public function mesurementPoint() {
+      return $this->belongsTo('App\MeasurementPoint');
+    }
 }

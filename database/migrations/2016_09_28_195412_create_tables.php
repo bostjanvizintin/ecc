@@ -37,7 +37,7 @@ class CreateTables extends Migration
         });
         Schema::create('measurements', function(Blueprint $table) {
             $table->increments('id');
-            $table->decimal('value', 3, 2);
+            $table->decimal('value', 5, 2);
             $table->integer('idSensor')->references('id')->on('sensors');
             $table->timestamps();
         });

@@ -4,7 +4,9 @@
 	 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
-      var phpChart = <?php echo json_encode($chart); ?>
+      var phpChart = <?php echo json_encode($chart); ?>;
+			var idSensor = <?php echo json_encode($idSensor); ?>;
+			var latestUpdate = <?php echo json_encode($latestUpdate); ?>;
 
 			window.onresize = function() {
 				drawChart();
@@ -34,26 +36,32 @@
         chart = new google.visualization.LineChart(document.getElementById('chart_div'));
 
 
-
         chart.draw(data, options);
       }
-      function hideColumns(size) {
-				var columns = new Array();
-				for (var i = 0; i < size; i++) {
-					if(document.getElementById("hideColumn"+(i+1)).checked) {
-						columns.push(i+1);
+
+			function test() {
+				var url = '/usage/ajax/' + idSensor + '/' + latestUpdate;
+
+				$.get(url, function(data) {
+					if(data != 0) {
+						latestUpdate = data.time.date;
+						phpChart.push([latestUpdate, data.value]);
+
+						if(phpChart.length > 11) {
+							phpChart.splice(2,1);
+						}
+
+						drawChart();
 					}
+				});
+			}
 
-				}
-
-            var view = new google.visualization.DataView(data);
-            view.hideColumns(columns);
-            chart.draw(view, options);
-
-      }
-
+			window.setInterval(function(){
+			  test();
+			}, 1000);
 
     </script>
+
 @endsection
 
 @section('content')
@@ -69,19 +77,6 @@
 				</div>
 			</div>
 			<div class="col-xs-4">
-				<table>
-				@for($i = 1;$i < count($chart[0]);$i++)
-					<tr>
-						<td>
-							Sensor: {{ $chart[0][$i] }}
-						<td>
-							<input type="checkbox" id="hideColumn{{ $i }}" value="{{ $i }}" onclick="hideColumns({{ count($chart[0])-1}})"><br>
-						</td>
-						</td>
-						<td><a href="{{ route('usage.drawLiveChart', ['idSensor' => $i]) }}">Show live feed!</a></td>
-					</tr>
-				@endfor
-				</table>
 			</div>
 		</div>
 	</div>

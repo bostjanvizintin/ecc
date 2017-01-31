@@ -36,7 +36,7 @@ class UsageController extends Controller
 
     }
 
-    public function drawChart(Request $request) {
+    public function drawChart(Requests\CheckUsageRequest $request) {
     	$idSensors = $request->sensors;
     	$startDate = strtotime($request->startDate) + strtotime($request->startTime) - strtotime('00:00');
     	$endDate = strtotime($request->endDate) + strtotime($request->endTime) - strtotime('00:00');
@@ -81,5 +81,27 @@ class UsageController extends Controller
       return view('drawChart')->with('chart', $chart);
     }
 
+    public function drawLiveChart(Request $request) {
+      $idSensor = $request->idSensor;
+      $currentTime = date('Y-m-d H:i:s',time());
+      $chart = array();
+      array_push($chart, array('Time',$idSensor));
+      array_push($chart, array($currentTime, 0));
 
+      return view('drawLiveChart')->with('chart', $chart)->with('idSensor', $idSensor)->with('latestUpdate', $currentTime);
+    }
+
+    public function ajaxGetLatestValue(Request $request) {
+      $latestUpdate = $request->latestUpdate;
+      $idSensor = $request->idSensor;
+      //$newValue = App\Measurement::where('idSensor', $idSensor)->first();
+      $newValue = App\Measurement::where('idSensor', $idSensor)->where('created_at', '>', $latestUpdate)->get();
+      if(count($newValue) == 0) {
+        return 0;
+      } else {
+          return response()->json(array('time' => $newValue[0]['created_at'], 'value' => $newValue[0]['value']));
+      }
+
+
+    }
 }

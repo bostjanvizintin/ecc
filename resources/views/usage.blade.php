@@ -12,7 +12,9 @@
             <h5>{{ $sensors[$key]['name'] }} :: {{ $sensors[$key]['hash'] }} <input type="checkbox" name="selectAll" value="selectAll{{ $sensors[$key]['name']}}"></h5>
             <ul>
             @foreach($sensorBox['sensors'] as $sensor)
-              <li><label for="sensor">{{ $sensor['measurementPointName'] }}, {{ $sensor['measurementPointSubName'] }} </label><input type="checkbox" name="sensors[]" value="{{ $sensor['id'] }}"></li>
+              <li>
+                <label for="sensor">{{ $sensor['measurementPointName'] }}, {{ $sensor['measurementPointSubName'] }} </label><input type="checkbox" name="sensors[]" value="{{ $sensor['id'] }}">
+              </li>
             @endforeach
             </ul>
         @endforeach
@@ -43,6 +45,20 @@
         <button class="btn btn-default" type="submit">Show usage</button>
         </div>
       </form>
+      @if (isset($errors) && count($errors) > 0)
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @endif
+      @if(isset($message))
+      <div class="alert alert-success">
+        {{ $message }}
+      </div>
+      @endif
     </div>
   </div>
 
