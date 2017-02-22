@@ -11,7 +11,7 @@ class UserErrorsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('userErrors')->insert([
+        DB::table('usererrors')->insert([
           'idUser' => 1,
           'idError' => 1,
           'seen' => false
