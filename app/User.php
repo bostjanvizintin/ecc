@@ -27,7 +27,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function usererrors() {
-      return $this->belongsToMany('App\UserError', 'idUser', 'id');
+    public function errors() {
+      return $this->belongsToMany('App\Error', 'usererrors','idUser', 'idError');
     }
 }

@@ -57,7 +57,8 @@
                       <div class="col-xs-2">
                         <div class="form-group">
                           <label for="input">Input:</label>
-                          <input class="form-control" type="number" name="input[]" min="1" max="{{ $sensorBox['numOfInputs']}}" step="1">
+                          <!--<input class="form-control" type="number" name="input[]" min="1" max="{{ $sensorBox['numOfInputs']}}" step="1">-->
+                          <input class="form-control" type="number" name="input[]" min="1" max="8" step="1">
                         </div>
                       </div>
                     </div>

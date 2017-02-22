@@ -31,12 +31,16 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/usage/{idSensor}', 'UsageController@drawLiveChart')->name('usage.drawLiveChart');
 
 	Route::get('/usage/ajax/{idSensor}/{latestUpdate}', 'UsageController@ajaxGetLatestValue');
-	
+
 	Route::resource('/userError', 'UserErrorController');
 
 	Route::resource('/notification', 'NotificationController');
 
+	Route::resource('/error', 'ErrorController');
 
+	Route::get('/instructions', function(){
+		return view('instructions');
+	})->name('instructions');
 
 });
 

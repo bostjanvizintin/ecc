@@ -84,5 +84,35 @@
 				</table>
 			</div>
 		</div>
+		<br>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Senzor</th>
+								<th>Max</th>
+								<th>Min</th>
+								<th>Avg.</th>
+								<th>Total</th>
+								<th>Total $</th>
+								<th>Compared to others</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>163</td>
+								<td>0.4</td>
+								<td>64</td>
+								<td>2532</td>
+								<td>2.3€</td>
+								<td>0.63</td>
+							</tr>
+						</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 @endsection
