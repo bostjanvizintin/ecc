@@ -60,7 +60,7 @@ class CreateTables extends Migration
           $table->string('description');
           $table->timestamps();
         });
-        Schema::create('userErrors', function(Blueprint $table) {
+        Schema::create('usererrors', function(Blueprint $table) {
           $table->increments('id');
           $table->integer('idUser')->referecnces('id')->on('users');
           $table->integer('idError')->references('id')->on('errors');
