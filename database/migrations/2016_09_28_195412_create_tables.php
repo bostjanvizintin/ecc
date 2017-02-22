@@ -81,6 +81,6 @@ class CreateTables extends Migration
         Schema::drop('measurements');
         Schema::drop('notifications');
         Schema::drop('errors');
-        Schema::drop('userErrors');
+        Schema::drop('usererrors');
     }
 }
