@@ -11,7 +11,7 @@ class SensorBoxesTableSeeder extends Seeder
      */
     public function run()
     {
-         DB::table('sensorBoxes')->insert([
+         DB::table('sensorboxes')->insert([
             'hash' => 'ij43mif5z8ec3w23z89jnv85e9o0p8e2',
             'name' => 'sensorbox1',
             'numOfInputs' => 4,
