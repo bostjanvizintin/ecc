@@ -47,10 +47,7 @@ class UsageController extends Controller
 
       $chart = array();
 
-      $chartEmptyRowWithDate = array();
-      foreach ($idSensors as $value) {
-        array_push($chartEmptyRowWithDate, 0);
-      }
+      $chartEmptyRowWithDate = array_fill(0,count($idSensors), 0);
       array_unshift($chartEmptyRowWithDate, "date");
 
       //create chartArray that fits chart requirement
@@ -74,14 +71,17 @@ class UsageController extends Controller
 
         while(!empty($usage) && strtotime($usage[0]['created_at']) < ($startDate + ($i * $interval))) {
           $tmp = array_shift($usage);
-          $chartEmptyRowWithDate[array_search($tmp['idSensor'], $idSensors)+1] += $tmp['value'];
-          $numberOfMeasurements[array_search($tmp['idSensor'], $idSensors)+1]++;
+          $index = array_search($tmp['idSensor'], $idSensors)+1;
+          $chartEmptyRowWithDate[$index] += $tmp['value'];
+          $numberOfMeasurements[$index]++;
         }
 
-        for($numberOfMeasurementsCounter = 1;$numberOfMeasurementsCounter < count($numberOfMeasurements)-1; $numberOfMeasurementsCounter++) {
-          if($numberOfMeasurements[$numberOfMeasurementsCounter] != 0)
-            $chartEmptyRowWithDate[$numberOfMeasurementsCounter] = $chartEmptyRowWithDate[$numberOfMeasurementsCounter]/$numberOfMeasurements[$numberOfMeasurementsCounter];
+
+        for($z = 1; $z < count($numberOfMeasurements)+1; $z++) {
+          if($numberOfMeasurements[$z] != 0)
+            $chartEmptyRowWithDate[$z] = $chartEmptyRowWithDate[$z]/$numberOfMeasurements[$z];
         }
+
         array_push($chart, $chartEmptyRowWithDate);
       }
 
