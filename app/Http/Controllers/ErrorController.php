@@ -16,4 +16,8 @@ class ErrorController extends Controller
       return view('error')->with('userErrors', $user->errors);
 
     }
+
+    public function store(Request $request) {
+      return "working";
+    }
 }

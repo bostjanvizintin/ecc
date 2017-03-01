@@ -14,7 +14,7 @@
           </div>
           <div class="panel-body">
             <div class="">
-
+              <a class="btn btn-primary" href="{{ route('notification.create') }}" role="button">Add notification</a>
             </div>
             <div class="notifications-table">
               <table class="table table-striped">
@@ -49,20 +49,7 @@
                 </tbody>
               </table>
             </div>
-              @if (isset($errors) && count($errors) > 0)
-                  <div class="alert alert-danger">
-                      <ul>
-                          @foreach ($errors->all() as $error)
-                              <li>{{ $error }}</li>
-                          @endforeach
-                      </ul>
-                  </div>
-              @endif
-              @if(isset($message))
-              <div class="alert alert-success">
-                {{ $message }}
-              </div>
-              @endif
+            @include('includes.errorMessage')
           </div>
         </div>
     </div>

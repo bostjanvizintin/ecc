@@ -29,7 +29,7 @@ class CreateTables extends Migration
             $table->string('hash');
             $table->integer('input');
             $table->integer('sensorMvPerAmp');
-            $table->integer('sampleTime');
+            $table->integer('sampleTime')->default(1000);
             $table->integer('idMeasurementPoint')->references('id')->on('measurementPoints');
             $table->integer('idSubMeasurementPoint')->references('id')->on('measurementPoints');
             $table->timestamps();

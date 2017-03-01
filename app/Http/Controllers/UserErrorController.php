@@ -11,7 +11,7 @@ class UserErrorController extends Controller
 {
     public function index(Request $request) {
       $user = App\User::find(1)->usererrors;
-return $user;
+      return $user;
       return $user->usererror;
 
     }

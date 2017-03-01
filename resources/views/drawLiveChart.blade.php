@@ -8,6 +8,8 @@
 			var idSensor = <?php echo json_encode($idSensor); ?>;
 			var latestUpdate = <?php echo json_encode($latestUpdate); ?>;
 
+			console.log(idSensor);
+
 			window.onresize = function() {
 				drawChart();
 			}
@@ -40,6 +42,7 @@
       }
 
 			function test() {
+				console.log('updating');
 				var url = '/usage/ajax/' + idSensor + '/' + latestUpdate;
 
 				$.get(url, function(data) {
@@ -58,7 +61,7 @@
 
 			window.setInterval(function(){
 			  test();
-			}, 1000);
+			}, 5000);
 
     </script>
 

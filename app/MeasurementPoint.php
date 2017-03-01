@@ -12,4 +12,6 @@ class MeasurementPoint extends Model
     public function sensor() {
       return $this->belongsTo('App\Sensor');
     }
+
+
 }

@@ -4,7 +4,8 @@
 	 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
 
-      var phpChart = <?php echo json_encode($chart); ?>
+      var phpChart = <?php echo json_encode($chart); ?>;
+			console.log(phpChart);
 
 			window.onresize = function() {
 				drawChart();
@@ -78,7 +79,7 @@
 							<input type="checkbox" id="hideColumn{{ $i }}" value="{{ $i }}" onclick="hideColumns({{ count($chart[0])-1}})"><br>
 						</td>
 						</td>
-						<td><a href="{{ route('usage.drawLiveChart', ['idSensor' => $i]) }}">Show live feed!</a></td>
+						<td><a href="{{ route('usage.drawLiveChart', ['idSensor' => $chart[0][$i]]) }}">Show live feed!</a></td>
 					</tr>
 				@endfor
 				</table>

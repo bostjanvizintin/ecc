@@ -70,11 +70,18 @@ class UsageController extends Controller
           }
         }
 
+        $numberOfMeasurements = array_fill(1,count($idSensors),0);
+
         while(!empty($usage) && strtotime($usage[0]['created_at']) < ($startDate + ($i * $interval))) {
           $tmp = array_shift($usage);
           $chartEmptyRowWithDate[array_search($tmp['idSensor'], $idSensors)+1] += $tmp['value'];
+          $numberOfMeasurements[array_search($tmp['idSensor'], $idSensors)+1]++;
         }
 
+        for($numberOfMeasurementsCounter = 1;$numberOfMeasurementsCounter < count($numberOfMeasurements)-1; $numberOfMeasurementsCounter++) {
+          if($numberOfMeasurements[$numberOfMeasurementsCounter] != 0)
+            $chartEmptyRowWithDate[$numberOfMeasurementsCounter] = $chartEmptyRowWithDate[$numberOfMeasurementsCounter]/$numberOfMeasurements[$numberOfMeasurementsCounter];
+        }
         array_push($chart, $chartEmptyRowWithDate);
       }
 

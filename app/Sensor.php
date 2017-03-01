@@ -11,7 +11,7 @@ class Sensor extends Model
 
 
     public function sensorBox() {
-    	return $this->belongsTo('App\SensorBox', 'hash', 'id');
+    	return $this->belongsTo('App\SensorBox', 'hash');
     }
 
      public function measurement() {
@@ -19,6 +19,7 @@ class Sensor extends Model
     }
 
     public function mesurementPoint() {
-      return $this->belongsTo('App\MeasurementPoint');
+      return $this->hasOne('App\MeasurementPoint');
     }
+
 }

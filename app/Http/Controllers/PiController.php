@@ -17,7 +17,6 @@ class PiController extends Controller
         'sensorBox' => $sensorBox
       );
 
-
       return json_encode($sensorBoxData);
     }
 

@@ -86,10 +86,16 @@
                  <div class="panel panel-default">
                     @yield('content')
                  </div>
+               <!--Debug info dump-->
+                 <div class="">
+                  User id: {{ Auth::user()->id }}
+                {{ App\SensorBox::where('idUser', Auth::user()->id)->get() }}
+                 </div>
+                <!--End Debug info dump-->
             </div>
         </div>
     </div>
-    
+
 
     <!-- Scripts -->
     @yield('bodyscript')
