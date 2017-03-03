@@ -57,29 +57,45 @@ class UsageController extends Controller
       }
       array_push($chart, $chartFirstRow);
 
+      $numberOfAddedMeasurements = array_fill(1, count($idSensors), 0);
+
       for ($i=0; $i < ($endDate - $startDate) / $interval; $i++) {
         $rowDate = (new \DateTime())->setTimestamp($startDate + ($i*$interval))->format('Y-m-d H:i:s');
 
         $chartEmptyRowWithDate[0] = $rowDate;
-        if ($request->chartType == 'current') {
-          for ($k=1; $k  < count($chartEmptyRowWithDate); $k++) {
-            $chartEmptyRowWithDate[$k] = 0;
-          }
-        }
 
-        $numberOfMeasurements = array_fill(1,count($idSensors),0);
+
+          for ($k=1; $k  < count($chartEmptyRowWithDate); $k++) {
+            if ($request->chartType == 'current') {
+              $chartEmptyRowWithDate[$k] = 0;
+            }
+            $numberOfAddedMeasurements[$k] = 0;
+          }
+
+
+        $tmpChartEmptyRowWithDate = array_fill(1, count($idSensors), 0);
 
         while(!empty($usage) && strtotime($usage[0]['created_at']) < ($startDate + ($i * $interval))) {
           $tmp = array_shift($usage);
           $index = array_search($tmp['idSensor'], $idSensors)+1;
-          $chartEmptyRowWithDate[$index] += $tmp['value'];
-          $numberOfMeasurements[$index]++;
+          $tmpChartEmptyRowWithDate[$index] += $tmp['value'];
+          $numberOfAddedMeasurements[$index]++;
         }
 
+        for ($j=1; $j < count($idSensors)+1; $j++) {
+          if($numberOfAddedMeasurements[$j] != 0) {
+            $tmpChartEmptyRowWithDate[$j] = $tmpChartEmptyRowWithDate[$j]/$numberOfAddedMeasurements[$j];
+          }
+        }
 
-        for($z = 1; $z < count($numberOfMeasurements)+1; $z++) {
-          if($numberOfMeasurements[$z] != 0)
-            $chartEmptyRowWithDate[$z] = $chartEmptyRowWithDate[$z]/$numberOfMeasurements[$z];
+        if($request->chartType == 'current') {
+          for ($j=1; $j < count($idSensors)+1; $j++) {
+            $chartEmptyRowWithDate[$j] = $tmpChartEmptyRowWithDate[$j];
+          }
+        } else if($request->chartType == 'total') {
+          for ($j=1; $j < count($idSensors)+1; $j++) {
+            $chartEmptyRowWithDate[$j] += $tmpChartEmptyRowWithDate[$j];
+          }
         }
 
         array_push($chart, $chartEmptyRowWithDate);

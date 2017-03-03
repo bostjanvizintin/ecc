@@ -89,7 +89,10 @@
                <!--Debug info dump-->
                  <div class="">
                   User id: {{ Auth::user()->id }}
-                {{ App\SensorBox::where('idUser', Auth::user()->id)->get() }}
+                {{ App\SensorBox::where('idUser', Auth::user()->id)->get() }}<br>
+                @if(isset($debugMessages))
+                  <?php print_r($debugMessages); ?>
+                @endif
                  </div>
                 <!--End Debug info dump-->
             </div>
